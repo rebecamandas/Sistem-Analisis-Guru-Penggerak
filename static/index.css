@@ -1,0 +1,70 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #2554c7;
+  padding-top: 176px;
+  padding: 120px 5px;
+}
+
+.navbar-nav {
+  margin-left: auto;
+}
+
+.navbar {
+  background-color: #1f45fc !important;
+  padding: 15px 20px;
+}
+
+.navbar-brand {
+  font-size: 24px !important;
+}
+
+.nav-link {
+  padding: 10px 30px !important;
+  font-size: 20px !important;
+  color: black !important;
+  transition: 0.5s;
+  border-radius: 2vh !important;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  color: white !important;
+}
+
+.nav-link:hover {
+  background-color: #f0f0f0;
+  color: blue;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 3vh !important;
+  transition: 0.5s;
+  color: black !important;
+}
+
+.isi {
+  padding-top: 12vh !important;
+  padding-left: 39vh;
+}
+
+.isi2 {
+  padding-left: 39vh;
+}
+
+.teacher-image {
+  flex: 0 0 auto; /* Menetapkan ukuran lebar yang tetap untuk gambar */
+  margin-right: 100vh !important; /* Jarak antara gambar dan teks */
+}
+
+.teacher-img {
+  width: 100px; /* Atur ukuran gambar */
+  height: auto; /* Biarkan ketinggian otomatis disesuaikan */
+}
+
+.teacher-info {
+  flex-grow: 1; /* Biarkan judul mengisi ruang yang tersisa di kanan gambar */
+}
+
+.card-title {
+  margin-bottom: 0; /* Hapus margin bawah pada judul */
+}

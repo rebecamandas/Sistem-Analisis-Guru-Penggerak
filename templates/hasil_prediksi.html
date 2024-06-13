@@ -1,0 +1,70 @@
+{% extends 'filestyle.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title fw-semibold mb-4">Hasil Analisis</h5>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col text-end">
+                            <button type="button" class="btn btn-danger" id="deleteAllBtn">Delete All</button>
+                            <form action="/export" method="get" class="d-inline">
+                                <button type="submit" class="btn btn-primary">Export Semua Analisis</button>
+                            </form>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-bordered mt-3">
+                        <thead class="text-center">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>NIP</th>
+                                <th>Asal Sekolah</th>
+                                <th>Kalimat</th>
+                                <th>Hasil Prediksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for prediction in predictions %}
+                            <tr>
+                                <td class="text-center">{{ loop.index }}</td>
+                                <td>{{ prediction[0] }}</td>
+                                <td>{{ prediction[1] }}</td>
+                                <td>{{ prediction[2] }}</td>
+                                <td>{{ prediction[3] }}</td>
+                                <td>{{ prediction[4] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fungsi untuk mengirimkan permintaan penghapusan semua prediksi
+    function deleteAllPredictions() {
+        fetch('/delete_all_predictions', {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (response.status === 204) {
+                // Jika permintaan berhasil, muat ulang halaman
+                window.location.reload();
+            } else {
+                // Jika terjadi kesalahan, tampilkan pesan kesalahan
+                console.error('Gagal menghapus semua prediksi');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Tambahkan event listener ke tombol hapus semua
+    document.getElementById('deleteAllBtn').addEventListener('click', deleteAllPredictions);
+</script>
+{% endblock %}

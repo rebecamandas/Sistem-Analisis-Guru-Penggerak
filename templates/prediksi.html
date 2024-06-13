@@ -1,0 +1,79 @@
+{% extends 'filestyle.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title fw-semibold mb-4">Analisis</h5>
+            <form id="upload-form" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="file" class="form-label">Upload CSV file:</label>
+                    <input class="form-control" type="file" id="file" name="file" accept=".csv">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+            <div id="upload-message" class="mt-3"></div>
+            <div id="uploaded-data" class="mt-3"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('upload-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData();
+        var fileInput = document.getElementById('file');
+        formData.append('file', fileInput.files[0]);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            var messageDiv = document.getElementById('upload-message');
+            if (data.message) {
+                messageDiv.textContent = data.message;
+                messageDiv.className = 'alert alert-success';
+                displayUploadedData(data.uploaded_data); // Panggil fungsi untuk menampilkan data yang diunggah
+            } else {
+                messageDiv.textContent = data.error;
+                messageDiv.className = 'alert alert-danger';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    function displayUploadedData(data) {
+        var dataDiv = document.getElementById('uploaded-data');
+        var tableHtml = `
+            <table class="table mt-3">
+                <thead class="text-center">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>NIP</th>
+                        <th>Asal Sekolah</th>
+                        <th>Kalimat</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+        data.forEach((row, index) => {
+            tableHtml += `
+                <tr>
+                    <td class="text-center">${index + 1}</td>
+                    <td>${row.name || ''}</td>
+                    <td>${row.nip || ''}</td>
+                    <td>${row.school || ''}</td>
+                    <td>${row.pengalaman || ''}</td>
+                </tr>
+            `;
+        });
+        tableHtml += `
+                </tbody>
+            </table>
+        `;
+        dataDiv.innerHTML = tableHtml;
+    }
+</script>
+{% endblock %}

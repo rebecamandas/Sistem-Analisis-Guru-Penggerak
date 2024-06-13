@@ -1,0 +1,44 @@
+.sidebar-nav ul .sidebar-item.selected > .sidebar-link,
+.sidebar-nav ul .sidebar-item.selected > .sidebar-link.active,
+.sidebar-nav ul .sidebar-item > .sidebar-link.active {
+  background-color: #086082 !important;
+}
+
+.icon {
+  font-size: 22px !important;
+}
+
+.sidebar-nav ul .sidebar-item .sidebar-link:hover {
+  transition: 0.5s;
+  color: #0079a9;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.btn-predict {
+  background-color: #0079a9;
+  border: none;
+  padding: 10px 20px;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+}
+
+.btn-predict:hover {
+  background-color: #015f84;
+  border: none;
+  padding: 10px 20px;
+}
+
+.btn-logout {
+  color: #086082;
+}
+
+.btn-logout:hover {
+  color: #ffffff;
+  background-color: #086082;
+}

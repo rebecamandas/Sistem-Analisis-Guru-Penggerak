@@ -1,0 +1,55 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.welcome-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: left center; /* Mulai dari kiri */
+  animation: slide 9s linear infinite;
+}
+
+.content {
+  text-align: center;
+  z-index: 1;
+  color: #fff;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+.description {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.start-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.start-btn:hover {
+  background-color: #0056b3;
+}

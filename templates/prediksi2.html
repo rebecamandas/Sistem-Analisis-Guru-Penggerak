@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistem Text Mining Analisis Peran Guru Penggerak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #2554C7;
+            padding-top: 176px;
+            padding: 120px 5px; 
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .navbar {
+            background-color: #1F45FC !important;
+            padding: 15px 20px;
+        }
+
+        .navbar-brand {
+            font-size: 24px !important;
+        }
+
+        .nav-link {
+            padding: 10px 30px !important;
+            font-size : 20px !important;
+            color: black !important;
+            transition: 0.5s;
+            border-radius: 2vh !important; 
+            padding-top: 15px !important;
+            padding-bottom: 15px !important;
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            background-color: #f0f0f0;
+            color: blue;
+            transition: background-color 0.3s, color 0.3s;
+            border-radius: 3vh !important; 
+            transition: 0.5s;
+            color: black !important;
+        }        
+
+        .isi{
+            padding-top: 12vh !important;
+            padding-left:39vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/prediksi">Prediksi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/hasil_prediksi">Hasil Prediksi</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Analis Rebecca</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+   <!-- Isi halaman Anda di sini -->
+   <div class="container-fluid isi mt-5">
+    <div class="card shadow">
+        <div class="card-body">
+            <form method="POST" action="/predict">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="name" class="form-label">Nama</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="col">
+                        <label for="nip" class="form-label">NIP</label>
+                        <input type="text" class="form-control" id="nip" name="nip" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="school" class="form-label">Asal Sekolah</label>
+                        <input type="text" class="form-control" id="school" name="school" required>
+                    </div>
+                    <div class="col">
+                        <label for="sentence" class="form-label">Masukkan Kalimat</label>
+                        <input type="text" class="form-control" id="sentence" name="sentence" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col text-start">
+                        <button type="submit" class="btn btn-primary btn-predict">Prediksi</button>
+                    </div>
+                </div>
+            </form>
+          
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

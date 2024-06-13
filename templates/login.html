@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/backgrounds/rocket.png') }}">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css') }}">
+</head>
+  
+<body>
+    <div id="back">
+        <canvas id="canvas" class="canvas-back"></canvas>
+        <div class="backRight">
+        </div>
+        <div class="backLeft">
+        </div>
+      </div>
+      
+      <div id="slideBox">
+        <div class="topLayer">
+          <div class="left">
+            <div class="content">
+              <h2>Sign Up</h2>
+              <form id="form-signup" method="post" onsubmit="return false;">
+                <div class="form-element form-stack">
+                  <label for="username" class="form-label">Username:</label>
+                  <input type="text" id="usernamer" name="username" class="form-control" required>
+                </div>
+                <div class="form-element form-stack">
+                  <label for="password" class="form-label">Password:</label>
+                  <input type="password" id="passwordr" name="password" class="form-control" required>
+                </div>
+                <div class="form-element form-submit">
+                  <button id="signUp" class="signup" type="submit" name="signup">Sign up</button>
+                  <button id="goLeft" class="signup off">Log In</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="right">
+            <div class="content">
+              <h2>Login</h2>
+              <form id="form-login" method="post" onsubmit="return false;">
+                <div class="form-element form-stack">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="form-element form-stack">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="form-element form-submit">
+                  <button id="logIn" class="login" type="submit">Log In</button>
+                  <button id="goRight" class="login off" name="signup">Sign Up</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.15/paper-full.min.js"></script>
+
+
+  <script>
+    // Kode JavaScript Anda di sini
+$(document).ready(function () {
+    $("#form-login").on("submit", function (event) {
+        // Mencegah formulir untuk dikirim secara default
+        event.preventDefault();
+
+        // Mendapatkan nilai username dan password dari input pada formulir login
+        var username = $("#username").val();
+        var password = $("#password").val();
+        
+        // Lakukan validasi jika diperlukan
+        
+        // Lakukan proses login dengan mengirimkan data ke server
+        $.ajax({
+            url: "../login", // URL untuk proses login
+            method: "POST",
+            data: {
+                username: username,
+                password: password
+            },
+            success: function (response) {
+                // Tanggapan dari server jika login berhasil
+                console.log("Login successful");
+                window.location.href = "/home"; // Ganti "/halaman-tujuan" dengan URL halaman yang ingin Anda arahkan setelah login berhasil
+            },
+            error: function (xhr, status, error) {
+                // Tanggapan dari server jika terjadi kesalahan saat login
+                console.error("Login failed:", error);
+                // Lakukan tindakan yang sesuai jika login gagal
+            }
+        });
+    });
+});
+</script>
+    
+
+<script>
+  $(document).ready(function () {
+      $("#form-signup").on("submit", function (event) {
+          // Mencegah formulir untuk dikirim secara default
+          event.preventDefault();
+  
+          // Mendapatkan nilai username dan password dari input pada formulir sign-up
+          var username = $("#usernamer").val();
+          var password = $("#passwordr").val();
+          
+          // Lakukan proses sign-up dengan mengirimkan data ke server
+          $.ajax({
+              url: "../register", // URL untuk proses sign-up
+              method: "POST",
+              data: {
+                  username: username,
+                  password: password
+              },
+              success: function (response) {
+                  // Tanggapan dari server jika registrasi berhasil
+                  console.log("Registration successful");
+                  // Redirect ke halaman login setelah registrasi berhasil
+                  window.location.href = "/";
+              },
+              error: function (xhr, status, error) {
+                  // Tanggapan dari server jika terjadi kesalahan saat registrasi
+                  console.error("Registration failed:", error);
+                  // Tampilkan pesan kesalahan kepada pengguna
+                  alert("Registration failed. Please try again.");
+              }
+          });
+      });
+  });
+  </script>
+  
+      <script> 
+       $(document).ready(function () {
+           $("#goRight").on("click", function () {
+             $("#slideBox").animate({
+               marginLeft: "0"
+             });
+             $(".topLayer").animate({
+               marginLeft: "100%"
+             });
+           });
+           $("#goLeft").on("click", function () {
+             if (window.innerWidth > 769) {
+               $("#slideBox").animate({
+                 marginLeft: "50%"
+               });
+             } else {
+               $("#slideBox").animate({
+                 marginLeft: "20%"
+               });
+             }
+             $(".topLayer").animate({
+               marginLeft: "0"
+             });
+           });
+         });
+         
+         /* ====================== *
+          *  Initiate Canvas       *
+          * ====================== */
+         paper.install(window);
+         paper.setup(document.getElementById("canvas"));
+         
+         // Paper JS Variables
+         var canvasWidth, canvasHeight, canvasMiddleX, canvasMiddleY;
+         
+         var shapeGroup = new Group();
+         
+         var positionArray = [];
+         
+         function getCanvasBounds() {
+           // Get current canvas size
+           canvasWidth = view.size.width;
+           canvasHeight = view.size.height;
+           canvasMiddleX = canvasWidth / 2;
+           canvasMiddleY = canvasHeight / 2;
+           // Set path position
+           var position1 = {
+             x: canvasMiddleX / 2 + 100,
+             y: 100
+           };
+         
+           var position2 = {
+             x: 200,
+             y: canvasMiddleY
+           };
+         
+           var position3 = {
+             x: canvasMiddleX - 50 + canvasMiddleX / 2,
+             y: 150
+           };
+         
+           var position4 = {
+             x: 0,
+             y: canvasMiddleY + 100
+           };
+         
+           var position5 = {
+             x: canvasWidth - 130,
+             y: canvasHeight - 75
+           };
+         
+           var position6 = {
+             x: canvasMiddleX + 80,
+             y: canvasHeight - 50
+           };
+         
+           var position7 = {
+             x: canvasWidth + 60,
+             y: canvasMiddleY - 50
+           };
+         
+           var position8 = {
+             x: canvasMiddleX + 100,
+             y: canvasMiddleY + 100
+           };
+         
+           positionArray = [
+             position3,
+             position2,
+             position5,
+             position4,
+             position1,
+             position6,
+             position7,
+             position8
+           ];
+         }
+         
+         /* ====================== *
+          * Create Shapes          *
+          * ====================== */
+         function initializeShapes() {
+           // Get Canvas Bounds
+           getCanvasBounds();
+         
+           var shapePathData = [
+             "M231,352l445-156L600,0L452,54L331,3L0,48L231,352",
+             "M0,0l64,219L29,343l535,30L478,37l-133,4L0,0z",
+             "M0,65l16,138l96,107l270-2L470,0L337,4L0,65z",
+             "M333,0L0,94l64,219L29,437l570-151l-196-42L333,0",
+             "M331.9,3.6l-331,45l231,304l445-156l-76-196l-148,54L331.9,3.6z",
+             "M389,352l92-113l195-43l0,0l0,0L445,48l-80,1L122.7,0L0,275.2L162,297L389,352",
+             "M 50 100 L 300 150 L 550 50 L 750 300 L 500 250 L 300 450 L 50 100",
+             "M 700 350 L 500 350 L 700 500 L 400 400 L 200 450 L 250 350 L 100 300 L 150 50 L 350 100 L 250 150 L 450 150 L 400 50 L 550 150 L 350 250 L 650 150 L 650 50 L 700 150 L 600 250 L 750 250 L 650 300 L 700 350 "
+           ];
+         
+           for (var i = 0; i <= shapePathData.length; i++) {
+             // Create shape
+             var headerShape = new Path({
+               strokeColor: "rgba(255, 255, 255, 0.5)",
+               strokeWidth: 2,
+               parent: shapeGroup
+             });
+             // Set path data
+             headerShape.pathData = shapePathData[i];
+             headerShape.scale(2);
+             // Set path position
+             headerShape.position = positionArray[i];
+           }
+         }
+         
+         initializeShapes();
+         
+         /* ====================== *
+          * Animation              *
+          * ====================== */
+         view.onFrame = function paperOnFrame(event) {
+           if (event.count % 4 === 0) {
+             // Slows down frame rate
+             for (var i = 0; i < shapeGroup.children.length; i++) {
+               if (i % 2 === 0) {
+                 shapeGroup.children[i].rotate(-0.1);
+               } else {
+                 shapeGroup.children[i].rotate(0.1);
+               }
+             }
+           }
+         };
+         
+         view.onResize = function paperOnResize() {
+           getCanvasBounds();
+         
+           for (var i = 0; i < shapeGroup.children.length; i++) {
+             shapeGroup.children[i].position = positionArray[i];
+           }
+         
+           if (canvasWidth < 700) {
+             shapeGroup.children[3].opacity = 0;
+             shapeGroup.children[2].opacity = 0;
+             shapeGroup.children[5].opacity = 0;
+           } else {
+             shapeGroup.children[3].opacity = 1;
+             shapeGroup.children[2].opacity = 1;
+             shapeGroup.children[5].opacity = 1;
+           }
+         };
+        
+       </script>
+       
+</body>
+</html>
+
